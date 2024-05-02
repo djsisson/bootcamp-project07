@@ -1,7 +1,5 @@
-import * as db from "../db/db.js";
+import * as db from "./pg_db.js";
 import Router from "express-promise-router";
-import { icons, themes } from "./seed_data.js";
-import { getHashTags, randomName } from "./helper_functions.js";
 
 const createTables = async () => {
   await db.query(`
@@ -113,59 +111,11 @@ const dropTables = async () => {
                  CASCADE`);
 };
 
-const addThemes = async () => {
-  const sqlParams = themes
-    .map((x) => `('${x.name}', '${x.colour}', '${x.path}')`)
-    .join();
-  const { rows } =
-    await db.query(`INSERT INTO themes (name, colour, path) VALUES
-    ${sqlParams} RETURNING *`);
-  return rows;
-};
-
-const addIcons = async () => {
-  const sqlParams = icons
-    .map((x) => `('${x.name}', '${x.path}', '${x.theme_id}')`)
-    .join();
-  const { rows } =
-    await db.query(`INSERT INTO icons (name, path, theme_id) VALUES
-    ${sqlParams} RETURNING *`);
-  return rows;
-};
-
-const addUsers = async () => {
-  const client = await db.getClient();
-
-  try {
-    await client.query("BEGIN");
-
-    for (let i = 0; i < 100; i++) {
-      const { rows } = await client.query(
-        `INSERT INTO users (username, first_name, last_name, email, icon_id) VALUES ($1, $2, $3, $4, $5)`,
-        [...randomName()]
-      );
-    }
-    await client.query("COMMIT");
-  } catch (error) {
-    await client.query("ROLLBACK");
-    throw error;
-  } finally {
-    client.release;
-  }
-};
-
 const router = new Router();
 
-router.get("/remake", async (req, res) => {
+router.get("/", async (req, res) => {
   await dropTables();
   await createTables();
-  res.status(200).send();
-});
-
-router.get("/addbasic", async (req, res) => {
-  await addThemes();
-  await addIcons();
-  await addUsers();
   res.status(200).send();
 });
 

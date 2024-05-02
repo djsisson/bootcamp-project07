@@ -2,27 +2,27 @@ import { faker } from "@faker-js/faker";
 import { icons } from "./seed_data.js";
 
 export const getHashTags = (text) => {
-  return text.match("#[p{L}0-9-_]+");
+  return text.match("#[p{L}0-9-_]+/ugi");
 };
 
 export const randomName = () => {
-  const firstName = faker.person.firstName();
-  const lastName = faker.person.lastName();
+  const first_name = faker.person.firstName();
+  const last_name = faker.person.lastName();
   const email = faker.internet.email({
-    firstName: firstName,
-    lastName: lastName,
+    firstName: first_name,
+    lastName: last_name,
   });
-  const userName = `${faker.word.adjective()}_${faker.word.noun()}`.replace(
+  const username = `${faker.word.adjective()}_${faker.word.noun()}`.replace(
     " ",
     ""
   );
-  const icon = parseInt(Math.floor(Math.random() * icons.length) + 1);
+  const icon_id = parseInt(Math.floor(Math.random() * icons.length) + 1);
 
   return {
-    firstName: firstName,
-    lastName: lastName,
+    username: username,
+    first_name: first_name,
+    last_name: last_name,
     email: email,
-    userName: userName,
-    icon: icon,
+    icon_id: icon_id,
   };
 };
