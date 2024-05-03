@@ -54,7 +54,7 @@ const createTables = async () => {
   await db.query(`
     CREATE TABLE IF NOT EXISTS hashtag (
             id SERIAL PRIMARY KEY,
-            name TEXT NOT NULL)`);
+            tag TEXT NOT NULL UNIQUE)`);
 
   await db.query(`
     CREATE TABLE IF NOT EXISTS message_tags (
@@ -62,7 +62,7 @@ const createTables = async () => {
             ON DELETE CASCADE
             ON UPDATE CASCADE,
         tag_id INTEGER REFERENCES hashtag(id)
-            ON DELETE CASCADE
+            ON DELETE RESTRICT
             ON UPDATE CASCADE,
         PRIMARY KEY (msg_id, tag_id)
       )`);

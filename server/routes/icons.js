@@ -7,6 +7,13 @@ export default router;
 
 router.get("/", async (req, res) => {
   const db = supaBase();
-  const { data, error } = await db.from("icons").select("*, icon:themes!inner(*)");
+  const { data, error } = await db
+    .from("icons")
+    .select("*, icon:themes!inner(*)");
   res.send(data);
+  if (error) {
+    res.status(500).send();
+    return;
+  }
+  res.status(200).send(data);
 });
