@@ -5,7 +5,7 @@ import { supaBase } from "../db/supa_db.js";
 
 export const getHashTags = (val) => {
   const re = new RegExp(/#[\p{L}0-9-_]+/ugi)
-  return val.match(re);
+  return val.toLowerCase().match(re);
 };
 
 export const randomWords = () => {
@@ -34,7 +34,7 @@ export const randomName = () => {
   const icon_id = parseInt(Math.floor(Math.random() * icons.length) + 1);
 
   return {
-    username: username,
+    username: username.toLowerCase(),
     first_name: first_name,
     last_name: last_name,
     email: email,

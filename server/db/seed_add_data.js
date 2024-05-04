@@ -3,7 +3,6 @@ import { faker } from "@faker-js/faker";
 import { supaBase } from "../db/supa_db.js";
 import { icons, themes } from "./seed_data.js";
 import {
-  upsertTags,
   randomName,
   randomMessage,
   randomWords,
@@ -38,11 +37,13 @@ const addMessages = async () => {
     .from("users")
     .select("*, icons (*, themes (*))");
   const themeIds = data;
+  const msgs = [];
+  const allTags = [];
   for (let i = 0; i < 200; i++) {
     const userId = Math.floor(Math.random() * 100) + 1;
     const rndTags = [
       ...randomWords(),
-      `#${themeIds[userId].icons.themes.name}`,
+      `#${(themeIds[userId].icons.themes.name).toLowerCase()}`,
     ];
     const createdDate = faker.date.recent({ days: 365 });
     const msgToSend = {
@@ -54,12 +55,25 @@ const addMessages = async () => {
       }),
       user_id: userId,
     };
-    const { data, error } = await db
-      .from("messages")
-      .insert(msgToSend)
-      .select();
-    await upsertTags(data[0].id, rndTags);
+    msgs.push(msgToSend);
+    allTags.push(rndTags);
   }
+
+
+  const msgIds = await db.from("messages").insert(msgs).select();
+  const reMapTags = Array.from(new Set(allTags.flat())).map((x) => {
+    return { tag: x };
+  });
+
+  
+  const tagIds = await db.from("hashtag").insert(reMapTags).select();
+  const junction = msgIds.data.map((x, i) => 
+    allTags[i].map((y) => ({
+      msg_id: x.id,
+      tag_id: tagIds.data.find((z) => z.tag == y).id,
+    })),
+  );
+  await db.from("message_tags").insert(junction.flat()).select()
 };
 
 const router = new Router();

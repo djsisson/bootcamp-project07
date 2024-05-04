@@ -43,8 +43,7 @@ router.get("/:tag", async (req, res) => {
 //       .from("messages")
 //       .select(
 //         "* , tags:hashtag(tag), user:users!messages_user_id_fkey(*,icon:icons (*, theme:themes (*)))"
-//       )
-//       .in("hashtag", [{ tag: req.params.tagname }])
+//       ).contains("hashtag.tag","#test")
 //       .order("updated", { ascending: false })
 //       .limit(5);
 //     if (error) {

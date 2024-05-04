@@ -15,6 +15,22 @@ router.get("/", async (req, res) => {
   }
   res.status(200).send(data);
 });
+router.get("/random/", async (req, res) => {
+  res.status(200).send(randomName());
+});
+
+router.get("/name/:username", async (req, res) => {
+  const db = supaBase();
+  const { data, error } = await db
+    .from("users")
+    .select("*, icons (*, themes (*))")
+    .eq("username", req.params.username.toLowerCase());
+  if (error) {
+    res.status(500).send();
+    return;
+  }
+  res.status(200).send(data);
+});
 
 router.get("/:userid", async (req, res) => {
   const db = supaBase();
@@ -31,7 +47,7 @@ router.get("/:userid", async (req, res) => {
 
 router.post("/", async (req, res) => {
   const db = supaBase();
-  const { data, error } = await db.from("users").insert(req.body).select();
+  const { data, error } = await db.from("users").insert({...req.body, username: req.body?.username.toLowerCase()}).select();
   if (error) {
     res.status(500).send(error);
     return;
@@ -43,6 +59,7 @@ router.post("/", async (req, res) => {
 router.post("/random", async (req, res) => {
   const db = supaBase();
   const { data, error } = await db.from("users").insert(randomName()).select();
+  console.log(error)
   if (error) {
     res.status(500).send(error);
     return;
@@ -55,7 +72,7 @@ router.put("/:userid", async (req, res) => {
   const db = supaBase();
   const { data, error } = await db
     .from("users")
-    .update(req.body)
+    .update({...req.body, username: req.body?.username.toLowerCase()})
     .eq("id", req.params.userid)
     .select();
   if (error) {
