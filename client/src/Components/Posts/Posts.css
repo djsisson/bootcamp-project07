@@ -1,0 +1,6 @@
+#postlist{
+    display: grid;
+    padding: var(--fs2);
+    gap: 1rem;
+    grid-template-columns: 1fr 4fr;
+}

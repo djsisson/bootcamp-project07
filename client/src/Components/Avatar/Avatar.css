@@ -1,0 +1,61 @@
+.icon-select {
+    width: min(120px, 20svw);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    z-index: 15;
+    position: relative;
+    filter: saturate(0.8);
+  }
+
+.icon-select:hover,
+.icon-container.active:not(:hover) {
+  cursor: pointer;
+  filter: saturate(2);
+}
+
+.icon-container {
+  position: relative;
+  --bgcolour: white;
+  width: min(120px, 20svw);
+}
+
+.icon-container::after {
+  position: absolute;
+  content: " ";
+  inset: 0;
+  opacity: 0;
+  z-index: 13;
+  border-radius: 50%;
+  width: 100%;
+  transition: opacity 1s ease;
+  background-image: conic-gradient(
+    from 45deg,
+    var(--bgcolour),
+    white,
+    var(--bgcolour)
+  );
+}
+
+.icon-container::before {
+  position: absolute;
+  content: " ";
+  inset: 0;
+  opacity: 0;
+  z-index: 13;
+  border-radius: 50%;
+  width: 100%;
+  background-image: conic-gradient(
+    from 135deg,
+    var(--bgcolour),
+    white,
+    var(--bgcolour)
+  );
+  opacity: 1;
+  transition: opacity 1s ease;
+}
+
+.icon-container:hover::after,
+.icon-container.active::after {
+  opacity: 1;
+  filter: drop-shadow(10px 10px 4px var(--bgcolour));
+}

@@ -42,7 +42,7 @@ export async function getTags({ params }) {
 
 export async function getPostsByUser({ params }) {
   const filter = params.user ?? "";
-  const response = await fetch(`${db}/messages/user/${params.tag ?? ""}`);
+  const response = await fetch(`${db}/messages/user/${params.user ?? ""}`);
   const data = await response.json();
   return data;
 }
@@ -68,7 +68,6 @@ export async function newUser({ request, params }) {
 export async function editUser({ request, params }) {
   const formData = await request.formData();
   const updates = Object.fromEntries(formData);
-  console.log(formData, updates)
   const response = await fetch(`${db}/users/${updates.id}`, {
     method: "PUT",
     body: JSON.stringify(updates),
@@ -76,4 +75,40 @@ export async function editUser({ request, params }) {
   });
   const data = await response.json();
   return redirect(`/Posts`);
+}
+
+export async function newPost({ request, params }) {
+  const formData = await request.formData();
+  const updates = Object.fromEntries(formData);
+  const response = await fetch(`${db}/messages/${updates.user_id}`, {
+    method: "POST",
+    body: JSON.stringify(updates),
+    headers: { "Content-Type": "application/json" },
+  });
+  const data = await response.json();
+  return redirect(`/Posts/user/${updates.user_id}`);
+}
+
+export async function editPost({ request, params }) {
+  const formData = await request.formData();
+  const updates = Object.fromEntries(formData);
+  const response = await fetch(`${db}/messages/${updates.id}`, {
+    method: "PUT",
+    body: JSON.stringify(updates),
+    headers: { "Content-Type": "application/json" },
+  });
+  const data = await response.json();
+  return redirect(`/Posts/user/${updates.user_id}`);
+}
+
+export async function deletePost({ request, params }) {
+  const formData = await request.formData();
+  const updates = Object.fromEntries(formData);
+  const response = await fetch(`${db}/messages/${updates.id}`, {
+    method: "DELETE",
+    body: JSON.stringify(updates),
+    headers: { "Content-Type": "application/json" },
+  });
+  const data = await response.json();
+  return redirect(`/Posts/`);
 }

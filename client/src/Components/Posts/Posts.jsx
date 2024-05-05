@@ -5,7 +5,7 @@ import Post from "../Post/Post";
 export default function Posts({tags}){
     const posts = useLoaderData();
 
-    return (<div>{posts?.map((post) =>{
+    return (<div id="postlist">{posts?.map((post) =>{
         return(<Post postData={post} key={post.id}></Post>)
     })}</div>)
 }

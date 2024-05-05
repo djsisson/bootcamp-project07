@@ -8,7 +8,7 @@ export default router;
 
 router.get("/", async (req, res) => {
   const db = supaBase();
-  const { data, error } = await db.from("users").select("*, icons (*, themes (*))");
+  const { data, error } = await db.from("users").select("*, icon:icons (*, theme:themes (*))");
   if (error) {
     res.status(500).send();
     return;
@@ -23,7 +23,7 @@ router.get("/name/:username", async (req, res) => {
   const db = supaBase();
   const { data, error } = await db
     .from("users")
-    .select("*, icons (*, themes (*))")
+    .select("*, icon:icons (*, theme:themes (*))")
     .eq("username", req.params.username.toLowerCase());
   if (error) {
     res.status(500).send();
@@ -36,7 +36,7 @@ router.get("/:userid", async (req, res) => {
   const db = supaBase();
   const { data, error } = await db
     .from("users")
-    .select("*, icons (*, themes (*))")
+    .select("*, icon:icons (*, theme:themes (*))")
     .eq("id", req.params.userid);
   if (error) {
     res.status(500).send();

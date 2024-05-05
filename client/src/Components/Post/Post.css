@@ -1,0 +1,12 @@
+.messageContent{
+grid-column-start: 2;
+grid-column-end: -1;
+padding: 0.5rem;
+}
+.profile-select{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap:0.5rem
+}

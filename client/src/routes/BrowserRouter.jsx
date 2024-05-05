@@ -15,18 +15,33 @@ const router = createBrowserRouter([
     children: [
       {
         path: "Posts",
-
         children: [
           {
             path: "tag/:tag",
             loader: routes.getPostsByTag,
-            element: <Posts tags={true}/>,
+            element: <Posts tags={true} />,
           },
-          { path: "user/:user", element: <Posts />, loader: routes.getPosts },
+          {
+            path: "user/:user",
+            element: <Posts />,
+            loader: routes.getPostsByUser,
+          },
           {
             index: true,
             element: <Posts />,
             loader: routes.getPosts,
+          },
+          {
+            path: "post/new/",
+            action: routes.newPost,
+          },
+          {
+            path: "post/edit/:postid",
+            action: routes.editPost,
+          },
+          {
+            path: "post/delete/:postid",
+            action: routes.deletePost,
           },
         ],
       },
