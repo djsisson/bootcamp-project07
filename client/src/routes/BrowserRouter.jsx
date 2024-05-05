@@ -4,40 +4,75 @@ import ErrorPage from "../Components/Error/Error";
 import Posts from "../Components/Posts/Posts";
 import Login from "../Components/Login/Login";
 import UserProfile from "../Components/UserProfile/UserProfile";
-import { getRandomUser, getUserByName } from "./user";
+import * as routes from "./routes.js";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     errorElement: <ErrorPage />,
+    loader: routes.getUserByName,
     children: [
       {
         path: "Posts",
-        element: <Posts />,
+
+        children: [
+          {
+            path: "tag/:tag",
+            loader: routes.getPostsByTag,
+            element: <Posts tags={true}/>,
+          },
+          { path: "user/:user", element: <Posts />, loader: routes.getPosts },
+          {
+            index: true,
+            element: <Posts />,
+            loader: routes.getPosts,
+          },
+        ],
       },
       {
         path: "Login",
-        element: <Login/>,
+        element: <Login />,
         children: [
           {
             path: ":invalid",
-            element: <Login/>,
-          }
-        ]
+            element: <Login />,
+          },
+        ],
+      },
+      {
+        index: true,
+        element: <Posts />,
+        loader: routes.getPosts,
       },
       {
         path: "User",
         children: [
           {
-            path: "new",
-            loader: getRandomUser,
-            element: <UserProfile />,
+            path: "new/:a",
+            loader: routes.getRandomUser,
+            action: routes.newUser,
+            element: <UserProfile newUser={true} />,
           },
           {
             path: ":username",
-            loader: getUserByName,
+            loader: routes.getUserByName,
+            action: routes.editUser,
             element: <UserProfile />,
+          },
+          {
+            index: true,
+            element: <Login />,
+          },
+        ],
+      },
+      {
+        path: "Tags?",
+        loader: routes.getTags,
+        children: [
+          {
+            path: "Tags/:tag",
+            loader: routes.getTags,
           },
         ],
       },

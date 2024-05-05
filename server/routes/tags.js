@@ -9,9 +9,9 @@ router.get("/", async (req, res) => {
   const db = supaBase();
   const { data, error } = await db
     .from("hashtag")
-    .select("*")
-    .order("tag", { ascending: true })
-    .limit(50);
+    .select("*, message_tags(tag_id)")
+    .order("hashtag_count",{ascending: false})
+    .limit(10);
   if (error) {
     res.status(500).send(error);
     return;
@@ -34,6 +34,21 @@ router.get("/:tag", async (req, res) => {
     return;
   }
   res.status(200).send(data[0]?.messages);
+});
+
+
+router.get("/search/:search", async (req, res) => {
+  const db = supaBase();
+  const { data, error } = await db
+    .from("hashtag")
+    .select("*")
+    .ilike("tag",`%${req.params.search.toLowerCase()}%`)
+    .limit(10);
+  if (error) {
+    res.status(500).send(error);
+    return;
+  }
+  res.status(200).send(data);
 });
 
 //cant get this way to work
