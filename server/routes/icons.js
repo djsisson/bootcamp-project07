@@ -10,10 +10,9 @@ router.get("/", async (req, res) => {
   const { data, error } = await db
     .from("themes")
     .select("*, icon:icons(*, theme:themes (*))");
-  res.send(data);
-  if (error) {
-    res.status(500).send();
-    return;
-  }
-  res.status(200).send(data);
+    if (error) {
+      res.status(500).send();
+      return;
+    }
+    res.status(200).send(data);
 });
