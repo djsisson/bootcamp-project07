@@ -36,23 +36,28 @@ export default function Post({ postData }) {
     );
   };
 
-  return (
+  return fetcher.state == "idle" ? (
     <>
       <div className="profile-select" onClick={onClick}>
         <Avatar user={postData.user}></Avatar>
       </div>
-      <div className="messageContent">
+      <div
+        className="messageContent"
+        style={{ "--bgcolour": postData.user.icon.theme.colour }}
+      >
         <div className="post-user-details">
           <span className="clickName" onClick={onClick}>
             @{postData.user.username}
           </span>
           {currentUser.id == postData.user_id ? (
-            <span onClick={onDelete}>delete</span>
+            <span className="delete-post" onClick={onDelete}>
+              &#x1F5D1;
+            </span>
           ) : null}
         </div>
 
         <div>{splitMessageTags()}</div>
       </div>
     </>
-  );
+  ) : null;
 }

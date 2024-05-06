@@ -2,6 +2,7 @@
     display: flex;
     gap: var(--fs1);
     align-items: center;
+    position: relative;
 }
 #newpost-message{
     flex: 1;
@@ -9,11 +10,11 @@
 }
 
 #newpost-message:invalid{
-    border: 1px solid !important;
+    border: none !important;
 }
 
 #newPost-container{
     width: 100%;
     max-width: 90ch;
-    padding: var(--fs1)
+    padding: 0 var(--fs2)
 }

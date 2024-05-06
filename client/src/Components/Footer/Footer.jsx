@@ -1,3 +1,5 @@
+import "./Footer.css"
+
 export default function Fooer(){
-    return (<div></div>)
+    return (<div id="signature">Darren</div>)
 }

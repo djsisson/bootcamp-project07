@@ -10,21 +10,54 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    // errorElement: <ErrorPage />,
+    errorElement: <ErrorPage />,
     loader: routes.getUserByName,
     children: [
       {
-        path: "Posts",
+        errorElement: <ErrorPage />,
         children: [
           {
-            path: "tag/:tag",
-            loader: routes.getPostsByTag,
-            element: <Posts tags={true} />,
+            path: "Posts",
+            children: [
+              {
+                path: "tag/:tag",
+                loader: routes.getPostsByTag,
+                element: <Posts tags={true} />,
+              },
+              {
+                path: "user/:user",
+                element: <Posts />,
+                loader: routes.getPostsByUser,
+              },
+              {
+                index: true,
+                element: <Posts />,
+                loader: routes.getPosts,
+              },
+              {
+                path: "post/new/",
+                action: routes.newPost,
+              },
+              {
+                path: "post/edit/:postid",
+                action: routes.editPost,
+                element: <Posts />,
+              },
+              {
+                path: "post/delete/:postid",
+                action: routes.deletePost,
+              },
+            ],
           },
           {
-            path: "user/:user",
-            element: <Posts />,
-            loader: routes.getPostsByUser,
+            path: "Login",
+            element: <Login />,
+            children: [
+              {
+                path: ":invalid",
+                element: <Login />,
+              },
+            ],
           },
           {
             index: true,
@@ -32,63 +65,35 @@ const router = createBrowserRouter([
             loader: routes.getPosts,
           },
           {
-            path: "post/new/",
-            action: routes.newPost,
+            path: "User",
+            children: [
+              {
+                path: "new/:a",
+                loader: routes.getRandomUser,
+                action: routes.newUser,
+                element: <UserProfile newUser={true} />,
+              },
+              {
+                path: ":username",
+                loader: routes.getUserByName,
+                action: routes.editUser,
+                element: <UserProfile />,
+              },
+              {
+                index: true,
+                element: <Login />,
+              },
+            ],
           },
           {
-            path: "post/edit/:postid",
-            action: routes.editPost,
-            element: <Posts />,
-          },
-          {
-            path: "post/delete/:postid",
-            action: routes.deletePost,
-          },
-        ],
-      },
-      {
-        path: "Login",
-        element: <Login />,
-        children: [
-          {
-            path: ":invalid",
-            element: <Login />,
-          },
-        ],
-      },
-      {
-        index: true,
-        element: <Posts />,
-        loader: routes.getPosts,
-      },
-      {
-        path: "User",
-        children: [
-          {
-            path: "new/:a",
-            loader: routes.getRandomUser,
-            action: routes.newUser,
-            element: <UserProfile newUser={true} />,
-          },
-          {
-            path: ":username",
-            loader: routes.getUserByName,
-            action: routes.editUser,
-            element: <UserProfile />,
-          },
-          {
-            index: true,
-            element: <Login />,
-          },
-        ],
-      },
-      {
-        path: "Tags?",
-        loader: routes.getTags,
-        children: [
-          {
-            path: "Tags/:tag",
+            path: "Tags?",
             loader: routes.getTags,
+            children: [
+              {
+                path: "Tags/:tag",
+                loader: routes.getTags,
+              },
+            ],
           },
         ],
       },

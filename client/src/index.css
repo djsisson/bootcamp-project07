@@ -9,7 +9,9 @@
   --fs1: 1rem;
   --fs2: 2rem;
   --fs3: 3rem;
-  
+  --boxshadow3: light-dark(hsla(0, 0%, 0%, 0.6), hsla(0, 0%, 100%, 0.8));
+  --boxshadow2: light-dark(hsla(0, 0%, 0%, 0.4), hsla(0, 0%, 100%, 0.6));
+  --boxshadow1: light-dark(hsla(0, 0%, 0%, 0.2), hsla(0, 0%, 100%, 0.4));
 }
 
 @property --gradient-angle {

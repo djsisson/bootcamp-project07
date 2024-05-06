@@ -1,19 +1,32 @@
-.messageContent{
-grid-column-start: 2;
-grid-column-end: -1;
-padding: 0.5rem;
+.messageContent {
+  grid-column-start: 2;
+  grid-column-end: -1;
+  padding: 0.5rem;
+  box-shadow: 1px 1px 1px var(--boxshadow1), 1px 1px 2px var(--boxshadow1);
+  border-bottom-right-radius: var(--fs2);
+  background-image: linear-gradient(
+    135deg,
+    transparent,
+    transparent,
+    var(--bgcolour) 120%
+  );
 }
-.profile-select{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap:0.5rem
+.profile-select {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
 }
-.clickName{
-    cursor: pointer;
+.clickName {
+  cursor: pointer;
 }
-.post-user-details{
-    display: flex;
-    justify-content: space-between;
+.post-user-details {
+  display: flex;
+  justify-content: space-between;
+}
+
+.delete-post{
+  color: red;
+  cursor: pointer;
 }

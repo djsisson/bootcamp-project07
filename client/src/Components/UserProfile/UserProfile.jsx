@@ -28,6 +28,19 @@ export default function UserProfile({ newUser }) {
   return (
     <div id="userProfile">
       <Form id="form-profile" method="post">
+      {newUser ? (
+          <button type="submit">Create</button>
+        ) : (
+          <div id="profile-button-list">
+            <button type="submit">Edit</button>
+            <button type="button" onClick={({ target }) =>
+              navigate(`/Posts/user/${userProfile?.id}`)
+            }>Posts</button>
+            <button type="button" onClick={logOut}>
+              Logout
+            </button>
+          </div>
+        )}
         <div className="formitem">
           {newUser ? null : (
             <input
@@ -115,16 +128,6 @@ export default function UserProfile({ newUser }) {
             required={true}
           />
         </div>
-        {newUser ? (
-          <button type="submit">Create</button>
-        ) : (
-          <div id="profile-button-list">
-            <button type="submit">Edit</button>
-            <button type="button" onClick={logOut}>
-              Logout
-            </button>
-          </div>
-        )}
       </Form>
     </div>
   );

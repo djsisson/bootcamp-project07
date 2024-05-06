@@ -11,6 +11,8 @@ export default function Tags() {
     }
   }, [fetcher]);
 
+  const searching = fetcher.state=="idle" ? true : false
+
   const onChange = (e) => {
     setSearch(e.target.value)
     fetcher.submit({tag: e.target.value},{method: "get", action: `tags/${e.target.value}`})
@@ -18,7 +20,7 @@ export default function Tags() {
   return (
     <fetcher.Form id="tags" method="get" action={`tags/${search}`}>
       <h1>Search</h1>
-      <div>
+      <div id="tag-search">
         <input
           id="q"
           aria-label="Search"
@@ -27,8 +29,7 @@ export default function Tags() {
           name="tag"
           onChange={onChange}
         />
-        <div id="search-spinner" aria-hidden hidden={true} />
-        <div className="sr-only" aria-live="polite"></div>
+        <div id="search-spinner" aria-hidden hidden={searching} />
       </div>
       <nav>
         <ul>

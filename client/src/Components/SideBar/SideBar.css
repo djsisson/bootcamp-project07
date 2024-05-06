@@ -9,7 +9,7 @@
 #sidebar-container{
   position: sticky;
   top: 0;
-  max-height: calc(100svh - 30px);
+  max-height: calc(100svh);
   border-right: solid 1px;
   border-bottom: 1px solid;
   border-top: 1px solid;

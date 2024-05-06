@@ -13,6 +13,9 @@
     gap: 1rem;
 }
 
+label{
+  font-size: var(--fs1);
+}
 
 .formitem {
   display: flex;

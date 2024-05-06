@@ -1,0 +1,39 @@
+#signature {
+    font-size: var(--fs2);
+    font-weight: bold;
+    background: linear-gradient(
+      90deg,
+      #ff0000 0%,
+      #ff8800,
+      #ffff00,
+      #88ff00,
+      #00ff00,
+      #00ff88,
+      #00ffff,
+      #0088ff,
+      #0000ff,
+      #8800ff,
+      #ff00ff,
+      #ff0088,
+      #ff0000 100%
+    );
+    background-size: 50% 100%;
+    text-align: right;
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: rainbow-scroll 5s linear infinite;
+    text-align: right;
+    width: 100%;
+    padding: 0 30px;
+  }
+  
+  @keyframes rainbow-scroll {
+    from {
+      background-position: 0 0;
+    }
+    to {
+      background-position: 100% 0;
+    }
+  }
