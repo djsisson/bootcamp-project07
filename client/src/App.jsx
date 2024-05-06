@@ -12,10 +12,9 @@ function App() {
   const userProfile = useLoaderData();
 
   useEffect(() => {
-    if(userProfile=="") return
-    setCurrentUser(userProfile)
+    if (userProfile == "") return;
+    setCurrentUser(userProfile);
   }, []);
-
 
   return (
     <>

@@ -1,0 +1,19 @@
+#newPost{
+    display: flex;
+    gap: var(--fs1);
+    align-items: center;
+}
+#newpost-message{
+    flex: 1;
+    width: 100%
+}
+
+#newpost-message:invalid{
+    border: 1px solid !important;
+}
+
+#newPost-container{
+    width: 100%;
+    max-width: 90ch;
+    padding: var(--fs1)
+}

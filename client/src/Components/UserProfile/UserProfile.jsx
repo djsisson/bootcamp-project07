@@ -118,7 +118,7 @@ export default function UserProfile({ newUser }) {
         {newUser ? (
           <button type="submit">Create</button>
         ) : (
-          <div>
+          <div id="profile-button-list">
             <button type="submit">Edit</button>
             <button type="button" onClick={logOut}>
               Logout

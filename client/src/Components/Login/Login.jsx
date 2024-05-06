@@ -1,5 +1,5 @@
 import "./Login.css";
-import { useState, useContext, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 export default function Login() {
@@ -27,6 +27,7 @@ export default function Login() {
         <label htmlFor="username">Username: </label>
         <input
           type="text"
+          name="username"
           value={username}
           placeholder="enter a username"
           onChange={({ target }) => setUserName(target.value)}

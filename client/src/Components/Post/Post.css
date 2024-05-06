@@ -10,3 +10,10 @@ padding: 0.5rem;
     align-items: center;
     gap:0.5rem
 }
+.clickName{
+    cursor: pointer;
+}
+.post-user-details{
+    display: flex;
+    justify-content: space-between;
+}

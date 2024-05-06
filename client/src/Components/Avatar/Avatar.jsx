@@ -1,6 +1,6 @@
 import "./Avatar.css";
 
-export default function Avatar({ user, sidebar }) {
+export default function Avatar({ user }) {
   return (
     <>
       <div
@@ -9,7 +9,6 @@ export default function Avatar({ user, sidebar }) {
       >
         <img className="icon-select" src={user.icon.path.slice(1)}></img>
       </div>
-      {sidebar ? null : <div>{user.username}</div>}
     </>
   );
 }

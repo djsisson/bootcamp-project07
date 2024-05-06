@@ -40,7 +40,6 @@ html {
 /* min body height */
 body {
   min-height: 100svh;
-  background-color: black;
 }
 
 /* responsive images/videos */

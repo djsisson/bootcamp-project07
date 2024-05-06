@@ -86,7 +86,7 @@ export async function newPost({ request, params }) {
     headers: { "Content-Type": "application/json" },
   });
   const data = await response.json();
-  return redirect(`/Posts/user/${updates.user_id}`);
+  return redirect(`/Posts/`);
 }
 
 export async function editPost({ request, params }) {
@@ -109,6 +109,5 @@ export async function deletePost({ request, params }) {
     body: JSON.stringify(updates),
     headers: { "Content-Type": "application/json" },
   });
-  const data = await response.json();
   return redirect(`/Posts/`);
 }

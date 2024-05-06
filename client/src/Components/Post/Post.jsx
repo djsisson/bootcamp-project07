@@ -1,20 +1,21 @@
 import "./Post.css";
-import { NavLink,useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useFetcher } from "react-router-dom";
+import { UserContext } from "../../Context/UserContext";
+import { useContext } from "react";
 import Avatar from "../Avatar/Avatar";
 
-let tagId = 0;
-
 export default function Post({ postData }) {
+  const { currentUser, setCurrentUser } = useContext(UserContext);
+  const fetcher = useFetcher();
   const navigate = useNavigate();
   const splitMessageTags = () => {
     const re = new RegExp(/(#[\p{L}0-9-_]+)/giu);
     const newMessage = postData.message.split(re);
 
-    return newMessage.map((msg) => {
+    return newMessage.map((msg, i) => {
       if (msg.charAt(0) == "#") {
-        tagId++;
         return (
-          <NavLink key={tagId} to={`/Posts/tag/${msg.slice(1)}`}>
+          <NavLink key={`tag-${i}`} to={`/Posts/tag/${msg.slice(1)}`}>
             {msg}
           </NavLink>
         );
@@ -28,12 +29,30 @@ export default function Post({ postData }) {
     navigate(`/Posts/user/${postData.user_id}`);
   };
 
+  const onDelete = () => {
+    fetcher.submit(
+      { id: postData.id },
+      { method: "DELETE", action: `/Posts/post/delete/${postData.id}` }
+    );
+  };
+
   return (
     <>
       <div className="profile-select" onClick={onClick}>
         <Avatar user={postData.user}></Avatar>
       </div>
-      <div className="messageContent">{splitMessageTags()}</div>
+      <div className="messageContent">
+        <div className="post-user-details">
+          <span className="clickName" onClick={onClick}>
+            @{postData.user.username}
+          </span>
+          {currentUser.id == postData.user_id ? (
+            <span onClick={onDelete}>delete</span>
+          ) : null}
+        </div>
+
+        <div>{splitMessageTags()}</div>
+      </div>
     </>
   );
 }

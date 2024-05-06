@@ -10,7 +10,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    errorElement: <ErrorPage />,
+    // errorElement: <ErrorPage />,
     loader: routes.getUserByName,
     children: [
       {
@@ -38,6 +38,7 @@ const router = createBrowserRouter([
           {
             path: "post/edit/:postid",
             action: routes.editPost,
+            element: <Posts />,
           },
           {
             path: "post/delete/:postid",

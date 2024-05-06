@@ -32,3 +32,8 @@ input:invalid{
 #email {
   width: 100%;
 }
+
+#profile-button-list{
+  display: flex;
+  justify-content: space-between;
+}

@@ -1,5 +1,5 @@
 .icon-select {
-    width: min(120px, 20svw);
+    width: min(120px, 15svw);
     aspect-ratio: 1;
     border-radius: 50%;
     z-index: 15;
@@ -16,7 +16,7 @@
 .icon-container {
   position: relative;
   --bgcolour: white;
-  width: min(120px, 20svw);
+  width: min(120px, 15svw);
 }
 
 .icon-container::after {
@@ -58,4 +58,8 @@
 .icon-container.active::after {
   opacity: 1;
   filter: drop-shadow(10px 10px 4px var(--bgcolour));
+}
+
+.user-name{
+  font-size: var(--fs1);
 }
