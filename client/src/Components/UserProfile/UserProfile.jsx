@@ -3,16 +3,19 @@ import { useLoaderData, useNavigate } from "react-router-dom";
 import { UserContext } from "../../Context/UserContext";
 import { useContext, useEffect, useState } from "react";
 import { Form } from "react-router-dom";
+import IconPicker from "../IconPicker/IconPicker";
 
 export default function UserProfile({ newUser }) {
   const userProfile = useLoaderData();
   const navigate = useNavigate();
   const [localUser, setLocalUser] = useState(userProfile);
+  const [iconPicker, setIconPicker] = useState(1)
   const { currentUser, setCurrentUser } = useContext(UserContext);
 
   useEffect(() => {
     if (!newUser) setCurrentUser(userProfile);
     setLocalUser(userProfile);
+    setIconPicker(userProfile.icon_id)
   }, [userProfile]);
 
   const logOut = () => {
@@ -32,7 +35,7 @@ export default function UserProfile({ newUser }) {
           <button type="submit">Create</button>
         ) : (
           <div id="profile-button-list">
-            <button type="submit">Edit</button>
+            <button type="submit">Save</button>
             <button type="button" onClick={({ target }) =>
               navigate(`/Posts/user/${userProfile?.id}`)
             }>Posts</button>
@@ -119,7 +122,7 @@ export default function UserProfile({ newUser }) {
           <input
             type="hidden"
             name="icon_id"
-            defaultValue={localUser?.icon_id}
+            value={iconPicker}
             placeholder="icon id"
             onChange={({ target }) =>
               setLocalUser({ ...currentUser, icon_id: target.value })
@@ -128,6 +131,7 @@ export default function UserProfile({ newUser }) {
             required={true}
           />
         </div>
+        <IconPicker icon_id={localUser?.icon} icon_set={setIconPicker} cur_icon={iconPicker}></IconPicker>
       </Form>
     </div>
   );

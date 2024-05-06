@@ -26,6 +26,12 @@ export async function getUserByName({ params }) {
   return data[0];
 }
 
+export async function getIcons() {
+  const response = await fetch(`${db}/icons`);
+  const data = await response.json();
+  return data;
+}
+
 export async function getPosts() {
   const response = await fetch(`${db}/messages`);
   const data = await response.json();
@@ -74,7 +80,7 @@ export async function editUser({ request, params }) {
     headers: { "Content-Type": "application/json" },
   });
   const data = await response.json();
-  return redirect(`/Posts`);
+  return redirect(`/User/${updates.username}`);
 }
 
 export async function newPost({ request, params }) {

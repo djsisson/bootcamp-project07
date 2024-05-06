@@ -1,4 +1,5 @@
 header{
     font-size: var(--fs3);
     text-align: center;
+    cursor: pointer;
 }

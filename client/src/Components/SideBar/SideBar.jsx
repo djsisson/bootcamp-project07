@@ -38,7 +38,7 @@ export default function SideBar() {
             <ul>
               {currentUser?.username ? (
                 <li id="sidebar-icon" onClick={onClick}>
-                  <Avatar user={currentUser}></Avatar>
+                  <Avatar user={currentUser.icon}></Avatar>
                 </li>
               ) : null}
 

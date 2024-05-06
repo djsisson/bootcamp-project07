@@ -8,8 +8,8 @@ export default router;
 router.get("/", async (req, res) => {
   const db = supaBase();
   const { data, error } = await db
-    .from("icons")
-    .select("*, icon:themes!inner(*)");
+    .from("themes")
+    .select("*, icon:icons(*, theme:themes (*))");
   res.send(data);
   if (error) {
     res.status(500).send();

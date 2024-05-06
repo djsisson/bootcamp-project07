@@ -39,7 +39,7 @@ export default function Post({ postData }) {
   return fetcher.state == "idle" ? (
     <>
       <div className="profile-select" onClick={onClick}>
-        <Avatar user={postData.user}></Avatar>
+        <Avatar user={postData.user.icon}></Avatar>
       </div>
       <div
         className="messageContent"

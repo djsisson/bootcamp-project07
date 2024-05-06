@@ -1,5 +1,5 @@
 .icon-select {
-    width: min(120px, 15svw);
+    width: min(100px, 15svw);
     aspect-ratio: 1;
     border-radius: 50%;
     z-index: 15;
@@ -7,8 +7,12 @@
     filter: saturate(0.8);
   }
 
+  .icon-container[active="false"]:not(:hover){
+    filter: grayscale(100%);
+  }
+
 .icon-select:hover,
-.icon-container.active:not(:hover) {
+.icon-container[active="true"]:not(:hover) {
   cursor: pointer;
   filter: saturate(2);
 }
@@ -16,7 +20,7 @@
 .icon-container {
   position: relative;
   --bgcolour: white;
-  width: min(120px, 15svw);
+  width: min(100px, 15svw);
 }
 
 .icon-container::after {
@@ -55,10 +59,12 @@
 }
 
 .icon-container:hover::after,
-.icon-container.active::after {
+.icon-container[active="true"]::after {
   opacity: 1;
   filter: drop-shadow(10px 10px 4px var(--bgcolour));
 }
+
+
 
 .user-name{
   font-size: var(--fs1);
