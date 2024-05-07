@@ -13,7 +13,7 @@ export default function IconPicker({ icon_id, icon_set, cur_icon }) {
   }, [fetcher]);
 
   useEffect(() => {
-    setCurrentElement(icon_id.theme_id - 1);
+    setCurrentElement(icon_id?.theme_id - 1 || 0);
   }, [icon_id]);
 
   const elementOnClick = (e) => {
